@@ -1,7 +1,16 @@
+﻿using MiniShop.Web.Middlewares;
+using MiniShop.Web.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Config logging (.NET 10)
+builder.Logging.SetMinimumLevel(LogLevel.Information);
+builder.Services.AddLogging();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IProductService, FakeProductService>(); // Scoped lifetime
 
 var app = builder.Build();
 
@@ -14,6 +23,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseMiddleware<ErrorHandlingMiddleware>(); // Trước UseRouting
+app.UseMiddleware<RequestTimingMiddleware>(); // Trước UseRouting
+
+
 app.UseRouting();
 
 app.UseAuthorization();
