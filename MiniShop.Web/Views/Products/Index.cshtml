@@ -1,0 +1,26 @@
+﻿@model List<MiniShop.Web.Models.Product>
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+
+<h2>Danh sách sản phẩm</h2>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Category</p>
+                    <p class="text-success fs-4 fw-bold">@product.Price.ToString("N0") VNĐ</p>
+                    <a asp-action="Details" asp-route-id="@product.Id"
+                       asp-route-slug="@product.Name.ToLower().Replace(" ", "-")"
+                       class="btn btn-primary">Chi tiết</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary mt-3">← Quay lại Home</a>

@@ -1,11 +1,15 @@
 ﻿using MiniShop.Web.Middlewares;
 using MiniShop.Web.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Config logging (.NET 10)
 builder.Logging.SetMinimumLevel(LogLevel.Information);
 builder.Services.AddLogging();
+builder.Host.UseSerilog((context, config) => config
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
