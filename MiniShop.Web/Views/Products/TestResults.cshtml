@@ -1,0 +1,35 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Test các ActionResult";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h2>🧪 Test 9 loại ActionResult</h2>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <a asp-action="Index" class="btn btn-primary btn-lg w-100 mb-2">1. View()</a>
+            <a asp-action="Create" class="btn btn-success btn-lg w-100 mb-2">2. Redirect()</a>
+            <a asp-action="Success" class="btn btn-info btn-lg w-100 mb-2">3. RedirectToAction()</a>
+            <a asp-action="Details" asp-route-id="999" class="btn btn-warning btn-lg w-100 mb-2">4. NotFound()</a>
+            <a asp-action="Validate" asp-route-id="1" class="btn btn-secondary btn-lg w-100 mb-2">5. BadRequest()</a>
+        </div>
+        <div class="col-md-6">
+            <a asp-action="DownloadCSV" class="btn btn-outline-dark btn-lg w-100 mb-2">6. Content()</a>
+            <a asp-action="DownloadImage" class="btn btn-danger btn-lg w-100 mb-2">7. File()</a>
+            <a asp-action="ApiProducts" class="btn btn-info btn-lg w-100 mb-2">8. Json()</a>
+            <a asp-action="Maintenance" class="btn btn-secondary btn-lg w-100 mb-2">9. StatusCode()</a>
+        </div>
+    </div>
+
+    <h4>Kết quả test:</h4>
+    <ul class="list-group">
+        <li class="list-group-item">✅ View(): Render Razor view</li>
+        <li class="list-group-item">✅ Redirect(): 302 → /Products</li>
+        <li class="list-group-item">✅ NotFound(): 404</li>
+        <li class="list-group-item">✅ Json(): application/json</li>
+        <li class="list-group-item">✅ File(): Download file</li>
+        <li class="list-group-item">✅ Content(): String or file depend on contentType</li>
+    </ul>
+</div>
