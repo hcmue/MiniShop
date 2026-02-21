@@ -1,0 +1,36 @@
+﻿@model ProductViewModel
+
+@{
+	ViewData["Title"] = "Newest";
+}
+
+
+<div class="container mt-4">
+	<h2>@Model.Message</h2>
+	<p>Danh mục: <strong>@Model.CurrentCategory</strong></p>
+
+	@if (!string.IsNullOrEmpty(Model.Message))
+	{
+		<div class="alert alert-info">@Model.Message</div>
+	}
+
+	<div class="row">
+		@foreach (var product in Model.Products)
+		{
+			<!-- Card như Lab 2.1 -->
+			<div class="col-md-4 mb-3">
+				<div class="card h-100">
+					<div class="card-body">
+						<h5 class="card-title">@product.Name</h5>
+						<p class="card-text">@product.Category</p>
+						<p class="text-success fs-4 fw-bold">@product.Price.ToString("N0") VNĐ</p>
+						<a asp-action="Details" asp-route-id="@product.Id"
+						   asp-route-slug="@product.Name.ToLower().Replace(" ", "-")"
+						   class="btn btn-primary">Chi tiết</a>
+					</div>
+				</div>
+			</div>
+
+		}
+	</div>
+</div>

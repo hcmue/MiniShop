@@ -5,6 +5,14 @@
 
 <h2>Danh sách sản phẩm</h2>
 
+<h2>@ViewData["PageTitle"] (@ViewData["Total"] sản phẩm)</h2>
+<h3 class="text-primary">@ViewBag.CurrentCategory</h3>
+
+@if (TempData["Deleted"] != null)
+{
+    <div class="alert alert-success">@TempData["Deleted"]</div>
+}
+
 <div class="row">
     @foreach (var product in Model)
     {
@@ -23,4 +31,5 @@
     }
 </div>
 
-<a asp-action="Index" asp-controller="Home" class="btn btn-secondary mt-3">← Quay lại Home</a>
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">← Quay lại Home</a>
+<a asp-action="Delete" asp-route-id="1" class="btn btn-danger">Xóa ID 1</a>

@@ -22,6 +22,11 @@ namespace MiniShop.Web.Controllers
         public IActionResult Index()
         {
             var products = _productService.GetAll();
+
+            ViewData["PageTitle"] = "Sản phẩm nổi bật";
+            ViewData["Total"] = products.Count;
+            ViewBag.CurrentCategory = "Điện thoại";
+
             return View(products);
         }
 
@@ -116,6 +121,23 @@ namespace MiniShop.Web.Controllers
         public IActionResult TestResults()
         {
             return View();
+        }
+
+        public IActionResult Delete(int id)
+        {
+            TempData["Deleted"] = $"Đã xóa sản phẩm ID: {id}";
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Newest()
+        {
+            var model = new ProductViewModel
+            {
+                Products = _productService.GetAll(),
+                Message = "Danh sách sản phẩm mới nhất",
+                CurrentCategory = "Điện thoại"
+            };
+            return View(model);
         }
     }
 }

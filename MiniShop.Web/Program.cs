@@ -1,4 +1,5 @@
-﻿using MiniShop.Web.Middlewares;
+﻿using MiniShop.Web.Filters;
+using MiniShop.Web.Middlewares;
 using MiniShop.Web.Services;
 using Serilog;
 
@@ -12,7 +13,11 @@ builder.Host.UseSerilog((context, config) => config
     .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day));
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<LogActionFilter>();
+});
 
 builder.Services.AddScoped<IProductService, FakeProductService>(); // Scoped lifetime
 

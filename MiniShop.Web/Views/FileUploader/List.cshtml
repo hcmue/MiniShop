@@ -1,0 +1,76 @@
+﻿@model List<MiniShop.Web.Controllers.FileInfoViewModel>
+@{
+	ViewData["Title"] = "Danh sách files đã upload";
+}
+
+<div class="container mt-5">
+	<div class="row justify-content-between align-items-center mb-4">
+		<div class="col">
+			<h2>📋 Files đã upload (@Model.Count files)</h2>
+		</div>
+		<div class="col-auto">
+			<a asp-action="Index" class="btn btn-primary">← Upload mới</a>
+		</div>
+	</div>
+
+	@if (ViewBag.Message != null)
+	{
+		<div class="alert alert-@(ViewBag.FileType == "single" ? "primary" : "success") alert-dismissible fade show">
+			<i class="bi bi-check-circle"></i> @ViewBag.Message
+			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+		</div>
+	}
+
+	@if (Model.Any())
+	{
+		<div class="table-responsive">
+			<table class="table table-hover table-striped">
+				<thead class="table-dark">
+					<tr>
+						<th>File name</th>
+						<th>Kích thước</th>
+						<th>Thời gian</th>
+						<th>Xem</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var file in Model)
+					{
+						<tr>
+							<td>
+								<i class="@(file.IsImage ? "bi bi-image" : "bi bi-file-earmark")"></i>
+								@file.FileName
+							</td>
+							<td>@file.SizeKB KB</td>
+							<td>@file.UploadTime.ToString("dd/MM/yyyy HH:mm")</td>
+							<td>
+								@if (file.IsImage)
+								{
+									<a href="~/uploads/@file.FileName" target="_blank"
+									   class="btn btn-sm btn-outline-primary">
+										<i class="bi bi-eye"></i> Xem
+									</a>
+								}
+								else
+								{
+									<a href="~/uploads/@file.FileName"
+									   class="btn btn-sm btn-outline-secondary" download>
+										<i class="bi bi-download"></i> Tải
+									</a>
+								}
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	}
+	else
+	{
+		<div class="text-center py-5">
+			<i class="bi bi-folder display-1 text-muted"></i>
+			<h4>Chưa có file nào</h4>
+			<a asp-action="Index" class="btn btn-primary">Upload ngay</a>
+		</div>
+	}
+</div>

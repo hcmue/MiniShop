@@ -1,0 +1,61 @@
+﻿@{
+	ViewData["Title"] = "Demo Upload file(s)";
+}
+
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="card shadow">
+				<div class="card-header bg-primary text-white">
+					<h3>📁 Upload Files</h3>
+				</div>
+				<div class="card-body">
+
+					<!-- 1️⃣ Single File Upload -->
+					<div class="card mb-4 border-primary">
+						<div class="card-header bg-light">
+							<h5>📄 Upload 1 file</h5>
+						</div>
+						<div class="card-body">
+							<form asp-action="UploadFile" enctype="multipart/form-data" method="post">
+								<div class="mb-3">
+									<label class="form-label">Chọn file:</label>
+									<input type="file" class="form-control" name="file" accept="image/*,.pdf,.docx">
+								</div>
+								<button type="submit" class="btn btn-primary">
+									<i class="bi bi-upload"></i> Upload Single
+								</button>
+							</form>
+						</div>
+					</div>
+
+					<!-- 2️⃣ Multiple Files Upload -->
+					<div class="card border-success">
+						<div class="card-header bg-light">
+							<h5>📂 Upload nhiều files</h5>
+						</div>
+						<div class="card-body">
+							<form asp-action="UploadFiles" enctype="multipart/form-data" method="post">
+								<div class="mb-3">
+									<label class="form-label">Chọn nhiều files (Ctrl+Click):</label>
+									<input type="file" class="form-control" name="files" multiple accept="image/*,.pdf,.docx">
+									<div class="form-text">Hỗ trợ JPG, PNG, PDF, DOCX (max 10MB/file)</div>
+								</div>
+								<button type="submit" class="btn btn-success">
+									<i class="bi bi-cloud-upload"></i> Upload Multiple
+								</button>
+							</form>
+						</div>
+					</div>
+
+					<div class="text-center mt-4">
+						<a asp-action="List" class="btn btn-outline-secondary">
+							👀 Xem danh sách files đã upload
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
